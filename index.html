@@ -1,0 +1,542 @@
+<!DOCTYPE>
+<html>
+<head>
+    <title>Melty match loader</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="eikastyle.css">
+    <script defer src="https://www.youtube.com/iframe_api"></script>
+</head>
+<body>
+    <div class="main">
+        <div id="last"></div>
+        <h1 class="header-text"><a href="#">Adding new timestamps!</a></h1>
+        <div id="ControlLoadURL">
+            <input id="VideoURL" value="https://www.youtube.com/watch?v=TiQxLUyu68g">
+            <button onclick="LoadYoutubePlayer()">Load</button>
+        </div>
+        <div id="player"></div>
+        <div id="AdvancedPlayerControl">
+            <button onclick="ChangeTime(-20)">-20s</button>
+            <button onclick="ChangeTime(-10)">-10s</button>
+            <button onclick="ChangeTime(-1)">-1s</button>
+            <button onclick="ChangeState()">Pause/Play</button>
+            <button onclick="ChangeTime(1)">+1s</button>
+            <button onclick="ChangeTime(10)">+10s</button>
+            <button onclick="ChangeTime(20)">+20s</button>
+            <div>
+                <label>Time in seconds:</label>
+                <br>
+                <input id="VideoTime" readonly>
+            </div>
+
+            <div id="AddForm">
+                <div class="column mainselect animleft">
+                    <select id="P1Character">
+                        <option value="%">Player 1 Character</option>
+                        <option value="akiha">Akiha Tohno</option>
+                        <option value="seifuku">Akiha Seifuku</option>
+                        <option value="vakiha">Akiha Vermillion</option>
+                        <option value="aoko">Aoko</option>
+                        <option value="hime">Archetype: Earth</option>
+                        <option value="arc">Arcueid</option>
+                        <option value="ciel">Ciel</option>
+                        <option value="hisui">Hisui</option>
+                        <option value="maids">HisuiKohaku (Maids)</option>
+                        <option value="kohaku">Kohaku</option>
+                        <option value="kohamech">KohakuMech</option>
+                        <option value="kouma">Kouma</option>
+                        <option value="len">Len</option>
+                        <option value="mech">Mech-Hisui</option>
+                        <option value="mechneco">Mech-Hisui+Neco Arc</option>
+                        <option value="miyako">Miyako</option>
+                        <option value="necoarc">Neco Arc</option>
+                        <option value="nac">Neco Arc Chaos</option>
+                        <option value="nero">Nero</option>
+                        <option value="pciel">Powerd Ciel</option>
+                        <option value="warc">Red Arcueid</option>
+                        <option value="ries">Riesbyfe</option>
+                        <option value="roa">Roa</option>
+                        <option value="sat">Satsuki</option>
+                        <option value="nanaya">Shiki Nanaya</option>
+                        <option value="ryougi">Shiki Ryougi</option>
+                        <option value="tohno">Shiki Tohno</option>
+                        <option value="sion">Sion</option>
+                        <option value="vsion">Sion TATARI</option>
+                        <option value="warachia">Warachia</option>
+                        <option value="whitelen">White Len</option>
+                    </select>
+                    <br>
+                    <select id="P1Moon">
+                        <option value="%">Player 1 Moon</option>
+                        <option value="Crescent">Crescent</option>
+                        <option value="Half">Half</option>
+                        <option value="Full">Full</option>
+                    </select>
+                    <div>
+                        <input type="text" id="P1EngName" placeholder="Player 1 English Name" value="" maxlength="20">
+                    </div>
+                    <div>
+                        <input type="text" id="P1JPName" placeholder="Player 1 Japanese Name" value="" maxlength="20">
+                    </div>
+                </div>
+                <div class="column subselect" style="padding">
+                    <select id="ChannelSelect">
+                        <option value="%">Any Channel</option>
+                        <option value="clearlamp">ClearLamp</option>
+                        <option value="meltybread">MeltyBread</option>
+                        <option value="gameacho">GAMEa-cho</option>
+                        <option value="zero3japan">zero3japan</option>
+                        <option value="kirisugu">kirisugu0053</option>
+                        <option value="misc">Misc. Channels</option>
+                        <option value="kwm">Kore Wa Melty</option>
+                    </select>
+                    <br>
+                    <select id="WinnerSelect">
+                        <option value="%">Winner</option>
+                        <option value="W">Player 1</option>
+                        <option value="L">Player 2</option>
+                    </select>
+                    <div>
+                        <input id="VideoDate" placeholder="Video Date" type="date">
+                    </div>
+                    <div>
+                        <label>Netplay?</label>
+                        <input id="NetplayCheck" type="checkbox">
+                    </div>
+                    <div>
+                        <label>Casuals?</label>
+                        <input id="CasualsCheck" type="checkbox">
+                    </div>
+                </div>
+                <div class="column mainselect right">
+                    <select id="P2Character">
+                        <option value="%">Player 2 Character</option>
+                        <option value="akiha">Akiha Tohno</option>
+                        <option value="seifuku">Akiha Seifuku</option>
+                        <option value="vakiha">Akiha Vermillion</option>
+                        <option value="aoko">Aoko</option>
+                        <option value="hime">Archetype: Earth</option>
+                        <option value="arc">Arcueid</option>
+                        <option value="ciel">Ciel</option>
+                        <option value="hisui">Hisui</option>
+                        <option value="maids">HisuiKohaku (Maids)</option>
+                        <option value="kohaku">Kohaku</option>
+                        <option value="kohamech">KohakuMech</option>
+                        <option value="kouma">Kouma</option>
+                        <option value="len">Len</option>
+                        <option value="mech">Mech-Hisui</option>
+                        <option value="mechneco">Mech-Hisui+Neco Arc</option>
+                        <option value="miyako">Miyako</option>
+                        <option value="necoarc">Neco Arc</option>
+                        <option value="nac">Neco Arc Chaos</option>
+                        <option value="nero">Nero</option>
+                        <option value="pciel">Powerd Ciel</option>
+                        <option value="warc">Red Arcueid</option>
+                        <option value="ries">Riesbyfe</option>
+                        <option value="roa">Roa</option>
+                        <option value="sat">Satsuki</option>
+                        <option value="nanaya">Shiki Nanaya</option>
+                        <option value="ryougi">Shiki Ryougi</option>
+                        <option value="tohno">Shiki Tohno</option>
+                        <option value="sion">Sion</option>
+                        <option value="vsion">Sion TATARI</option>
+                        <option value="warachia">Warachia</option>
+                        <option value="whitelen">White Len</option>
+                    </select>
+                    <br>
+                    <select id="P2Moon">
+                        <option value="%">Player 2 Moon</option>
+                        <option value="Crescent">Crescent</option>
+                        <option value="Half">Half</option>
+                        <option value="Full">Full</option>
+                    </select>
+                    <div>
+                        <input type="text" id="P2EngName" placeholder="Player 2 English Name" value="" maxlength="20">
+                    </div>
+                    <div>
+                        <input type="text" id="P2JPName" placeholder="Player 2 Japanese Name" value="" maxlength="20">
+                    </div>
+                </div>
+                <br>
+                <br>
+                <button id="AddMatchButton">Add</button>
+                <button id="CancelEditButton">Cancel Edit</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="MatchesContent" class="content" style="text-align: center;">
+        <h2>Matches on this video</h2>
+
+        <table id="result">
+            <tbody>
+                <tr>
+                    <th> # </th>
+                    <th>Date (Y-M-D)</th>
+                    <th>Player 1</th>
+                    <th>Player 2</th>
+                    <th>Match Up</th>
+                    <th></th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </tbody>
+
+            <tbody class="s1" id="MatchList">
+            </tbody>
+        </table>
+
+        <div class="save-matches">
+            <button>Save matches!</button>
+        </div>
+
+        <div id="footer">
+            <a href="index.php">Back to Home Page</a> |
+            <a href="#">Back to the Top</a>
+            <p class="lcomment">
+            ??,??? matches and more to come!<br>
+            Hosting graciously provided by Ac-town</p>
+        </div>
+    </div>
+</body>
+
+<script>
+/*Player controls*/
+let videoURL = document.getElementById("VideoURL");
+let controlLoadURL = document.getElementById("ControlLoadURL");
+let advancedPlayerControl = document.getElementById("AdvancedPlayerControl");
+let videoTime = document.getElementById("VideoTime");
+let player = null;
+
+/*Adding match controls*/
+let p1c = document.getElementById("P1Character");
+let p1m = document.getElementById("P1Moon");
+let p1e = document.getElementById("P1EngName");
+let p1j = document.getElementById("P1JPName");
+let p2c = document.getElementById("P2Character");
+let p2m = document.getElementById("P2Moon");
+let p2e = document.getElementById("P2EngName");
+let p2j = document.getElementById("P2JPName");
+let channelSelect = document.getElementById("ChannelSelect");
+let winnerSelect = document.getElementById("WinnerSelect");
+let netplayCheck = document.getElementById("NetplayCheck");
+let casualsCheck = document.getElementById("CasualsCheck");
+let videoDate = document.getElementById("VideoDate");
+let matchesAdded = [];
+let addMatchButton = document.getElementById("AddMatchButton");
+AddMatchButton.addEventListener("click", AddMatch);
+let cancelEditButton = document.getElementById("CancelEditButton");
+CancelEditButton.addEventListener("click", CancelEdit);
+
+/*Match List*/
+let matchesContent = document.getElementById("MatchesContent");
+let matchList = document.getElementById("MatchList");
+
+/*Edit Match*/
+let editIdx = null;
+
+function AddMatch() {
+    let msg = "";
+
+    if(p1c.value === "%") {
+        msg += "Select Player 1 character.\n";
+    }
+    if(p1m.value === "%") {
+        msg += "Select Player 1 moon.\n";
+    }
+    if(p1e.value === "" && p1j.value === "") {
+        msg += "Select Player 1 English or Japanese name. Preferably both.\n";
+    }
+    if(p2c.value === "%") {
+        msg += "Select Player 2 character.\n";
+    }
+    if(p2m.value === "%") {
+        msg += "Select Player 2 moon.\n";
+    }
+    if(p2e.value === "" && p2j.value === "") {
+        msg += "Select Player 2 English or Japanese name. Preferably both.\n";
+    }
+    if(p2m.value === "%") {
+        msg += "Select Player 2 moon.\n";
+    }
+    if(channelSelect.value === "%") {
+        msg += "Select channel where video is hosted.\n";
+    }
+    if(winnerSelect.value === "%") {
+        msg += "Select a winner of the match.\n";
+    }
+    if(videoDate.value === "") {
+        msg += "Enter date of the video.";
+    }
+
+    if(msg.length > 0) {
+        return alert(msg);
+    } else {
+        //Add/edit
+        let matchObj = {
+            p1c: p1c.value,
+            p1m: p1m.value,
+            p1e: p1e.value || null,
+            p1j: p1j.value || null,
+            p2c: p2c.value,
+            p2m: p2m.value,
+            p2e: p2e.value || null,
+            p2j: p2j.value || null,
+            winner: winnerSelect.value,
+            channel: channelSelect.value,
+            netplay: netplayCheck.checked,
+            casuals: casualsCheck.checked,
+            time: parseInt(videoTime.value),
+            date: videoDate.value,
+            vid: player.getVideoData().video_id
+        };
+
+        //If there is a match that starts too close, show warning
+        if(getCloseMatch(matchObj.time)) {
+            let res = confirm("There is a match close to this timepoint already.\nSure you want to continue?");
+            if(!res) {
+                return;
+            }
+        }
+
+        if(editIdx !== null) {
+            matchesAdded[editIdx] = matchObj;
+            CancelEdit();
+        } else {
+            matchesAdded.push(matchObj);
+        }
+
+        UpdateMatches();
+    }
+}
+
+//Finds a match that is close to the given time +-10sec
+function getCloseMatch(time) {
+    return matchesAdded.find((m) => {
+        return Math.abs(m.time - time) <= 10;
+    });
+}
+
+function UpdateMatches() {
+    //Remove DOM rows
+    while(matchList.firstChild) {
+        matchList.removeChild(matchList.firstChild);
+    }
+    /* DOM to build:
+        <tr style="display: table-row;">
+            <td>15</td>
+            <td>2019-08-31<br> <span class="mtype">Freeplay</span></td>
+            <td><a class="some" href="resultnew.php?player1=-">-<br> <span class="engname"></span></a></td>
+            <td><a class="some" href="resultnew.php?player1=sola">sola<br><span class="engname"></span></a></td>
+            <td>
+                <img src="moon/full.png" alt="Full">
+                <img src="char/nero.jpg" alt="Nero">
+                <img src="char/seifuku.jpg" alt="Seifuku/">
+                <img src="moon/crescent.png" alt="Crescent">
+            </td>
+            <td><a href="https://youtu.be/CYYudRC02Eo?t=3180" target="_blank">Watch</a></td>
+            <td>
+                <input type="hidden" name="mID" id="mID14" value="133391">
+                <button onclick="report(14)">x</button>
+            </td>
+        </tr>
+    */
+    //Sort matches by time, we want newest matches appear on top
+    matchesAdded.sort((a, b) => {
+        return b.time - a.time;
+    });
+
+    //Create match rows
+    for(let i = 0; i < matchesAdded.length; i++) {
+        let tr = document.createElement("tr");
+
+        let idx = document.createElement("td");
+        idx.innerText = matchesAdded.length - i;
+        tr.appendChild(idx);
+
+        let date_td = document.createElement("td");
+        let date = document.createElement("span");
+        let free = document.createElement("span");
+        date.innerText = matchesAdded[i].date;
+        free.innerText = matchesAdded[i].casuals ? "Freeplay" : "";
+        free.className = "mtype";
+        date_td.appendChild(date);
+        date_td.appendChild(document.createElement("br"));
+        date_td.appendChild(free);
+        tr.appendChild(date_td);
+
+        let p1name = document.createElement("td");
+        let p1name_j = document.createElement("span");
+        let p1name_e = document.createElement("span");
+        p1name_j.className = "some";
+        p1name_j.innerText = matchesAdded[i].p1j || matchesAdded[i].p1e; //If not set, fallback to english name
+        p1name_e.className = "engname";
+        p1name_e.innerText = matchesAdded[i].p1j ? matchesAdded[i].p1e : "";
+        p1name.appendChild(p1name_j);
+        p1name.appendChild(document.createElement("br"));
+        p1name.appendChild(p1name_e);
+        tr.appendChild(p1name);
+
+        let p2name = document.createElement("td");
+        let p2name_j = document.createElement("span");
+        let p2name_e = document.createElement("span");
+        p2name_j.className = "some";
+        p2name_j.innerText = matchesAdded[i].p2j || matchesAdded[i].p2e; //If not set, fallback to english name
+        p2name_e.className = "engname";
+        p2name_e.innerText = matchesAdded[i].p2j ? matchesAdded[i].p2e : "";
+        p2name.appendChild(p2name_j);
+        p2name.appendChild(document.createElement("br"));
+        p2name.appendChild(p2name_e);
+        tr.appendChild(p2name);
+
+        let imgs = document.createElement("td");
+        let p1c = document.createElement("img");
+        p1c.src = "char/" + matchesAdded[i].p1c + ".jpg";
+        let p1m = document.createElement("img");
+        p1m.src = "moon/" + matchesAdded[i].p1m + ".png";
+        let p2c = document.createElement("img");
+        p2c.src = "char/" + matchesAdded[i].p2c + ".jpg";
+        let p2m = document.createElement("img");
+        p2m.src = "moon/" + matchesAdded[i].p2m + ".png";
+        imgs.appendChild(p1m);
+        imgs.appendChild(p1c);
+        imgs.appendChild(p2c);
+        imgs.appendChild(p2m);
+        tr.appendChild(imgs);
+
+        let jump = document.createElement("td");
+        let jbutton = document.createElement("button");
+        jbutton.innerText = "Jump to " + matchesAdded[i].time + "s";
+        jbutton.onclick = () => player.seekTo(matchesAdded[i].time);
+        jump.appendChild(jbutton);
+        tr.appendChild(jump);
+
+        let edit = document.createElement("td");
+        let editButton = document.createElement("button");
+        editButton.innerText = "Edit";
+        editButton.onclick = () => {
+            EditMatch(i);
+            tr.classList.add("edit");
+        }
+        edit.appendChild(editButton);
+        tr.appendChild(edit);
+
+        let del = document.createElement("td");
+        let delButton = document.createElement("button");
+        delButton.innerText = "Delete";
+        delButton.onclick = () => DeleteMatch(i);
+        del.appendChild(delButton);
+        tr.appendChild(del);
+
+        matchList.appendChild(tr);
+    }
+
+    if(matchesAdded.length === 0) {
+        let tr = document.createElement("tr");
+        let nope = document.createElement("td");
+        nope.innerText = "No matches.";
+        nope.setAttribute("colspan", 8);
+        tr.appendChild(nope);
+        matchList.appendChild(tr);
+    }
+}
+
+function EditMatch(idx) {
+    let match = matchesAdded[idx];
+
+    player.pauseVideo();
+    player.seekTo(match.time);
+
+    p1c.value = matchesAdded[idx].p1c;
+    p1m.value = matchesAdded[idx].p1m;
+    p1e.value = matchesAdded[idx].p1e;
+    p1j.value = matchesAdded[idx].p1j;
+    p2c.value = matchesAdded[idx].p2c;
+    p2m.value = matchesAdded[idx].p2m;
+    p2e.value = matchesAdded[idx].p2e;
+    p2j.value = matchesAdded[idx].p2j;
+    winnerSelect.value = matchesAdded[idx].winner;
+    channelSelect.value = matchesAdded[idx].channel;
+    netplayCheck.checked = matchesAdded[idx].netplay;
+    casualsCheck.checked = matchesAdded[idx].casuals;
+
+    editIdx = idx;
+    addMatchButton.innerText = "Update existing match";
+    cancelEditButton.style.display = "inline";
+}
+
+function CancelEdit() {
+    editIdx = null;
+    cancelEditButton.style.display = "none";
+    addMatchButton.innerText = "Add";
+    let tr = document.querySelector("tr.edit");
+    if(tr) {
+        tr.classList.remove("edit");
+    }
+}
+
+function DeleteMatch(idx) {
+    let res = confirm("Are you sure?");
+    if(res) {
+        matchesAdded.splice(idx, 1);
+        UpdateMatches();
+    }
+}
+
+function GetVideoId(url){
+    var ID = '';
+    url = url.replace(/(>|<)/gi,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+
+    if(url[2] !== undefined) {
+        ID = url[2].split(/[^0-9a-z_\-]/i);
+        ID = ID[0];
+    } else {
+        ID = url;
+    }
+    return ID;
+}
+
+function LoadYoutubePlayer() {
+    let id = GetVideoId(videoURL.value);
+    controlLoadURL.style.display = "none";
+    advancedPlayerControl.style.display = "block";
+    matchesContent.style.display = "block";
+
+    player = new YT.Player('player', {
+        height: '400',
+        width: '800',
+        autoplay: true,
+        rel: 0,
+        videoId: id,
+    });
+
+    //Constantly update video time value
+    setInterval(() => {
+        if(player && player.getCurrentTime) {
+            videoTime.value = Math.floor(player.getCurrentTime());
+        } else {
+            videoTime.value = 0;
+        }
+    });
+
+    UpdateMatches();
+}
+
+function ChangeTime(amount) {
+    let time = parseInt(videoTime.value);
+    let newTime = time + amount;
+    player.seekTo(newTime);
+}
+
+function ChangeState() {
+    let currentState = player.getPlayerState();
+    if(currentState === YT.PlayerState.PLAYING) {
+        player.pauseVideo();
+    } else {
+        player.playVideo();
+    }
+}
+
+</script>
+
+</html>
