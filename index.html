@@ -187,7 +187,11 @@
         </table>
 
         <div class="save-matches">
-            <button>Save matches!</button>
+            <button onclick="SaveMatches()">Save matches! (Updates CSV data below for now)</button>
+            <br>
+            <br>
+            <label>Matches CSV data:</label>
+            <textarea id="MatchDataCSV"></textarea>
         </div>
 
         <div id="footer">
@@ -231,6 +235,7 @@ CancelEditButton.addEventListener("click", CancelEdit);
 /*Match List*/
 let matchesContent = document.getElementById("MatchesContent");
 let matchList = document.getElementById("MatchList");
+let matchDataCSV = document.getElementById("MatchDataCSV");
 
 /*Edit Match*/
 let editIdx = null;
@@ -266,7 +271,20 @@ function AddMatch() {
         msg += "Select a winner of the match.\n";
     }
     if(videoDate.value === "") {
-        msg += "Enter date of the video.";
+        msg += "Enter date of the video.\n";
+    }
+
+    if(p1e.value.includes(",")) {
+        msg += "Not allowed to have commas in the Player 1 English name.\n";
+    }
+    if(p1j.value.includes(",")) {
+        msg += "Not allowed to have commas in the Player 1 Japanese name.\n";
+    }
+    if(p2e.value.includes(",")) {
+        msg += "Not allowed to have commas in the Player 2 English name.\n";
+    }
+    if(p2j.value.includes(",")) {
+        msg += "Not allowed to have commas in the Player 2 Japanese name.";
     }
 
     if(msg.length > 0) {
@@ -308,6 +326,34 @@ function AddMatch() {
 
         UpdateMatches();
     }
+}
+
+function SaveMatches() {
+    matchDataCSV.value = "";
+
+    for(let i = 0; i < matchesAdded.length; i++) {
+        let line = "";
+        let m = matchesAdded[i];
+        line += m.p1c + ",";
+        line += (m.p1m || "") + ",";
+        line += (m.p1e || "") + ",";
+        line += m.p1j + ",";
+        line += m.p2c + ",";
+        line += m.p2m + ",";
+        line += (m.p2e || "") + ",";
+        line += (m.p2j || "") + ",";
+        line += m.winner + ",";
+        line += m.channel + ",";
+        line += m.netplay + ",";
+        line += m.casuals + ",";
+        line += m.time + ",";
+        line += m.date + ",";
+        line += m.vid;
+
+        matchDataCSV.value += line + "\n";
+    }
+
+    matchDataCSV.value = matchDataCSV.value.trim();
 }
 
 //Finds a match that is close to the given time +-10sec
