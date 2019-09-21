@@ -357,9 +357,10 @@ function SaveMatches() {
 }
 
 //Finds a match that is close to the given time +-10sec
+//Ignores match in edit mode
 function getCloseMatch(time) {
-    return matchesAdded.find((m) => {
-        return Math.abs(m.time - time) <= 10;
+    return matchesAdded.find((m, idx) => {
+        return Math.abs(m.time - time) <= 10 && idx !== editIdx;
     });
 }
 
@@ -438,12 +439,16 @@ function UpdateMatches() {
         let imgs = document.createElement("td");
         let p1c = document.createElement("img");
         p1c.src = "char/" + matchesAdded[i].p1c + ".jpg";
+        p1c.className = matchesAdded[i].winner = "W" ? "win" : "";
         let p1m = document.createElement("img");
         p1m.src = "moon/" + matchesAdded[i].p1m + ".png";
+        p1m.className = "moon";
         let p2c = document.createElement("img");
         p2c.src = "char/" + matchesAdded[i].p2c + ".jpg";
+        p1c.className = matchesAdded[i].winner = "L" ? "win" : "";
         let p2m = document.createElement("img");
         p2m.src = "moon/" + matchesAdded[i].p2m + ".png";
+        p2m.className = "moon";
         imgs.appendChild(p1m);
         imgs.appendChild(p1c);
         imgs.appendChild(p2c);
